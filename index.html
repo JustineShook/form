@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .success-message {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .form-section {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .form-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            flex: 1 1 100%;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="tel"],
+        input[type="email"],
+        select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        input[type="tel"]:focus,
+        input[type="email"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .input-error {
+            border-color: #f44336 !important;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            padding: 10px 0;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            font-weight: normal;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .error {
+            color: #f44336;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #45a049;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>REGISTRATION FORM</h1>
+        <p class="subtitle">For Practice Purposes Only</p>
+        
+        <div id="successMessage" class="success-message">
+            ✓ Form submitted successfully! All fields have been cleared.
+        </div>
+        
+        <form id="sssForm" novalidate>
+            <div class="form-section">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Last Name *</label>
+                        <input type="text" name="last_name" id="last_name">
+                        <span class="error" id="last_name_error">Last name is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>First Name *</label>
+                        <input type="text" name="first_name" id="first_name">
+                        <span class="error" id="first_name_error">First name is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Middle Name</label>
+                        <input type="text" name="middle_name" id="middle_name">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date of Birth *</label>
+                        <input type="date" name="dob" id="dob">
+                        <span class="error" id="dob_error">Date of birth is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Sex *</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="sex" value="Male"> Male</label>
+                            <label><input type="radio" name="sex" value="Female"> Female</label>
+                        </div>
+                        <span class="error" id="sex_error">Sex is required</span>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Civil Status *</label>
+                        <select name="civil_status" id="civil_status">
+                            <option value="">Select</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Widowed">Widowed</option>
+                            <option value="Legally Separated">Legally Separated</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <span class="error" id="civil_status_error">Civil status is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Nationality *</label>
+                        <input type="text" name="nationality" id="nationality">
+                        <span class="error" id="nationality_error">Nationality is required</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="form-row">
+                    <div class="form-group full">
+                        <label>Place of Birth *</label>
+                        <input type="text" name="place_of_birth" id="place_of_birth" placeholder="City/Country, Province">
+                        <span class="error" id="place_of_birth_error">Place of birth is required</span>
+                    </div>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="same_address" name="same_address">
+                    <label for="same_address">The same with Home Address</label>
+                </div>
+                
+                <div class="form-row" id="home_address_row">
+                    <div class="form-group full">
+                        <label>Home Address *</label>
+                        <input type="text" name="home_address" id="home_address" placeholder="House/Lot No. & Bldg. Name, Street Name, Subdivision">
+                        <span class="error" id="home_address_error">Home address is required</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Mobile/Cellphone Number *</label>
+                        <input type="tel" name="mobile_number" id="mobile_number" placeholder="09XXXXXXXXX">
+                        <span class="error" id="mobile_number_error">Mobile number is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>E-mail Address *</label>
+                        <input type="text" name="email" id="email">
+                        <span class="error" id="email_error">Valid email is required</span>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Mother's Maiden Name - Last Name *</label>
+                        <input type="text" name="mother_last_name" id="mother_last_name">
+                        <span class="error" id="mother_last_name_error">Mother's last name is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>First Name *</label>
+                        <input type="text" name="mother_first_name" id="mother_first_name">
+                        <span class="error" id="mother_first_name_error">Mother's first name is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Middle Name *</label>
+                        <input type="text" name="mother_middle_name" id="mother_middle_name">
+                        <span class="error" id="mother_middle_name_error">Mother's middle name is required</span>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Father's Name - Last Name *</label>
+                        <input type="text" name="father_last_name" id="father_last_name">
+                        <span class="error" id="father_last_name_error">Father's last name is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>First Name *</label>
+                        <input type="text" name="father_first_name" id="father_first_name">
+                        <span class="error" id="father_first_name_error">Father's first name is required</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Middle Name *</label>
+                        <input type="text" name="father_middle_name" id="father_middle_name">
+                        <span class="error" id="father_middle_name_error">Father's middle name is required</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Handle same address checkbox
+        const sameAddressCheckbox = document.getElementById('same_address');
+        const homeAddressRow = document.getElementById('home_address_row');
+        const homeAddressInput = document.getElementById('home_address');
+        const placeOfBirthInput = document.getElementById('place_of_birth');
+
+        sameAddressCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                homeAddressRow.style.display = 'none';
+                homeAddressInput.value = placeOfBirthInput.value;
+            } else {
+                homeAddressRow.style.display = 'flex';
+            }
+        });
+
+        // Update home address when place of birth changes and checkbox is checked
+        placeOfBirthInput.addEventListener('input', function() {
+            if (sameAddressCheckbox.checked) {
+                homeAddressInput.value = this.value;
+            }
+        });
+
+        // Form validation and submission
+        document.getElementById('sssForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset errors
+            document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+            
+            let isValid = true;
+            
+            // Validate required fields
+            const requiredFields = [
+                { id: 'last_name', message: 'Last name is required' },
+                { id: 'first_name', message: 'First name is required' },
+                { id: 'dob', message: 'Date of birth is required' },
+                { id: 'civil_status', message: 'Civil status is required' },
+                { id: 'nationality', message: 'Nationality is required' },
+                { id: 'place_of_birth', message: 'Place of birth is required' },
+                { id: 'mobile_number', message: 'Mobile number is required' },
+                { id: 'email', message: 'Email is required' },
+                { id: 'mother_last_name', message: "Mother's last name is required" },
+                { id: 'mother_first_name', message: "Mother's first name is required" },
+                { id: 'mother_middle_name', message: "Mother's middle name is required" },
+                { id: 'father_last_name', message: "Father's last name is required" },
+                { id: 'father_first_name', message: "Father's first name is required" },
+                { id: 'father_middle_name', message: "Father's middle name is required" }
+            ];
+            
+            requiredFields.forEach(field => {
+                const input = document.getElementById(field.id);
+                if (!input.value.trim()) {
+                    document.getElementById(field.id + '_error').textContent = field.message;
+                    document.getElementById(field.id + '_error').style.display = 'block';
+                    input.classList.add('input-error');
+                    isValid = false;
+                }
+            });
+            
+            // Validate sex radio buttons
+            const sexRadio = document.querySelector('input[name="sex"]:checked');
+            if (!sexRadio) {
+                document.getElementById('sex_error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate home address if checkbox is not checked
+            if (!sameAddressCheckbox.checked) {
+                if (!homeAddressInput.value.trim()) {
+                    document.getElementById('home_address_error').style.display = 'block';
+                    homeAddressInput.classList.add('input-error');
+                    isValid = false;
+                }
+            } else {
+                // If checkbox is checked, copy place of birth to home address
+                homeAddressInput.value = placeOfBirthInput.value;
+            }
+            
+            // Validate email format
+            const emailInput = document.getElementById('email');
+            const emailValue = emailInput.value.trim();
+            
+            if (emailValue) {
+                // Check if email contains '@'
+                if (!emailValue.includes('@')) {
+                    document.getElementById('email_error').textContent = 'Email must contain @';
+                    document.getElementById('email_error').style.display = 'block';
+                    emailInput.classList.add('input-error');
+                    isValid = false;
+                }
+                // Check if there's text before '@'
+                else if (emailValue.indexOf('@') === 0) {
+                    document.getElementById('email_error').textContent = 'Email must have text before @';
+                    document.getElementById('email_error').style.display = 'block';
+                    emailInput.classList.add('input-error');
+                    isValid = false;
+                }
+                // Check if there's text after '@'
+                else if (emailValue.indexOf('@') === emailValue.length - 1) {
+                    document.getElementById('email_error').textContent = 'Email must have text after @';
+                    document.getElementById('email_error').style.display = 'block';
+                    emailInput.classList.add('input-error');
+                    isValid = false;
+                }
+                // Check if there's a dot (.) after '@'
+                else if (!emailValue.split('@')[1].includes('.')) {
+                    document.getElementById('email_error').textContent = 'Email must contain a dot (.) after @';
+                    document.getElementById('email_error').style.display = 'block';
+                    emailInput.classList.add('input-error');
+                    isValid = false;
+                }
+                // Check if there's text after the last dot
+                else if (emailValue.split('.').pop().length < 2) {
+                    document.getElementById('email_error').textContent = 'Email domain is too short';
+                    document.getElementById('email_error').style.display = 'block';
+                    emailInput.classList.add('input-error');
+                    isValid = false;
+                }
+            }
+            
+            // Validate mobile number format (must be 11 digits starting with 09)
+            const mobileInput = document.getElementById('mobile_number');
+            const mobileValue = mobileInput.value.trim();
+            
+            // Check if mobile number is not empty (already checked in required fields)
+            if (mobileValue) {
+                // Check if it starts with "09"
+                if (!mobileValue.startsWith('09')) {
+                    document.getElementById('mobile_number_error').textContent = 'Mobile number must start with 09';
+                    document.getElementById('mobile_number_error').style.display = 'block';
+                    mobileInput.classList.add('input-error');
+                    isValid = false;
+                }
+                // Check if it has exactly 11 digits
+                else if (mobileValue.length !== 11) {
+                    document.getElementById('mobile_number_error').textContent = 'Mobile number must be exactly 11 digits';
+                    document.getElementById('mobile_number_error').style.display = 'block';
+                    mobileInput.classList.add('input-error');
+                    isValid = false;
+                }
+                // Check if it contains only numbers
+                else if (!/^\d+$/.test(mobileValue)) {
+                    document.getElementById('mobile_number_error').textContent = 'Mobile number must contain only numbers';
+                    document.getElementById('mobile_number_error').style.display = 'block';
+                    mobileInput.classList.add('input-error');
+                    isValid = false;
+                }
+            }
+            
+            if (isValid) {
+                // Disable submit button to prevent double submission
+                const submitBtn = document.querySelector('.submit-btn');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+                
+                // Submit form via AJAX
+                const formData = new FormData(this);
+                
+                fetch('submit_form.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show success message
+                        const successMessage = document.getElementById('successMessage');
+                        successMessage.textContent = '✓ ' + data.message + ' All fields have been cleared.';
+                        successMessage.classList.add('show');
+                        
+                        // Clear the form
+                        document.getElementById('sssForm').reset();
+                        
+                        // Reset the checkbox state and show home address field
+                        homeAddressRow.style.display = 'flex';
+                        
+                        // Scroll to top to show success message
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        
+                        // Hide success message after 5 seconds
+                        setTimeout(() => {
+                            successMessage.classList.remove('show');
+                        }, 5000);
+                    } else {
+                        // Show error message
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while submitting the form. Please try again.');
+                })
+                .finally(() => {
+                    // Re-enable submit button
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit';
+                });
+            } else {
+                // Scroll to first error
+                const firstError = document.querySelector('.input-error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
